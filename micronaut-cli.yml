@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: mx.edu.ebc
+testFramework: spock
+sourceLanguage: groovy
+buildTool: gradle
+features: [app-name, gradle, groovy, groovy-application, http-client, logback, netty-server, openapi, readme, shade, spock, yaml]
