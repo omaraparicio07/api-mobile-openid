@@ -9,6 +9,9 @@ group = "mx.edu.ebc"
 
 repositories {
     mavenCentral()
+    maven {
+        url "http://172.31.100.23:8081/nexus/content/groups/public/"
+  }
 }
 
 micronaut {
@@ -21,12 +24,28 @@ micronaut {
 }
 
 dependencies {
-    implementation("io.swagger.core.v3:swagger-annotations")
+     implementation("io.swagger.core.v3:swagger-annotations")
     compileOnly("io.micronaut.openapi:micronaut-openapi")
     implementation("io.micronaut:micronaut-validation")
-    implementation("io.micronaut.groovy:micronaut-runtime-groovy")
+    implementation 'org.codehaus.groovy:groovy:3.0.7'
     implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-management:2.3.1")
+    implementation("io.micronaut.security:micronaut-security")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+    implementation("mysql:mysql-connector-java:5.1.49") {
+        version {
+            strictly("5.1.49")
+        }
+    }
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    implementation('com.oracle:ojdbc7:12.1.0.1')
+    annotationProcessor("io.micronaut.security:micronaut-security-annotations")
+    implementation("io.micronaut.data:micronaut-data-spring:2.3.1")
+    implementation("org.springframework:spring-orm:5.2.0.RELEASE")
     runtimeOnly("ch.qos.logback:logback-classic")
+    compile ("org.springframework.ldap:spring-ldap-core:2.3.3.RELEASE")
 }
 
 
@@ -38,5 +57,11 @@ java {
     targetCompatibility = JavaVersion.toVersion("1.8")
 }
 
+tasks.withType(GroovyCompile) {
+    groovyOptions.forkOptions.jvmArgs.add('-Dgroovy.parameters=true')
+    groovyOptions.forkOptions.jvmArgs.add('-Doracle.jdbc.timezoneAsRegion=false')
+    groovyOptions.forkOptions.jvmArgs.add('-Dmicronaut.openapi.views.spec=rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=outline')
+    options.fork = true
+}
 
 

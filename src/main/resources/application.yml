@@ -1,3 +1,10 @@
 micronaut:
   application:
     name: apiMobileOpenid
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+        paths: classpath:META-INF/swagger
+        mapping: /swaggerYAML/**
