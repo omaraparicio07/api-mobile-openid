@@ -1,10 +1,23 @@
 micronaut:
   application:
     name: apiMobileOpenid
+  security:
+    enabled: true
+    endpoints:
+      oauth:
+        enabled: true
+    intercept-url-map:
+      - pattern: /swagger/**
+        access:
+          - isAnonymous()
+      - pattern: /swagger-ui/**
+        access:
+          - isAnonymous()
   router:
     static-resources:
       swagger:
         paths: classpath:META-INF/swagger
         mapping: /swagger/**
-        paths: classpath:META-INF/swagger
-        mapping: /swaggerYAML/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**

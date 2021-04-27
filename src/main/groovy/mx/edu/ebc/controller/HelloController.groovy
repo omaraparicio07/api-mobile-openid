@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.tags.Tag
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 
 @Controller("/")
 class HelloController {
@@ -26,6 +27,7 @@ class HelloController {
     @ApiResponse(responseCode = "400", description = "Invalid Name Supplied")
     @ApiResponse(responseCode = "404", description = "Person not found")
     @Tag(name = "greeting")
+    @SecurityRequirement(name = "openid", scopes = "openid")
     Single<String> greetings(@Parameter(description="The name of the person") @NotBlank String name) {
         return Single.just("Hello $name, How are you doing?")
     }

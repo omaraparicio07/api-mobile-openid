@@ -26,7 +26,10 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme
         security = @SecurityRequirement(name = "BEARER", scopes = ["ADMIN"])
 )
 @SecurityScheme(
-    name = "basicAuth", type = SecuritySchemeType.HTTP, scheme = "basic"
+    name = "openid",
+    type = SecuritySchemeType.OAUTH2,
+    scheme = "bearer",
+    bearerFormat = "jwt"
 )
 @CompileStatic
 class Application {
