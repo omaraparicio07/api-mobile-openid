@@ -5,6 +5,9 @@ import groovy.transform.CompileStatic
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.info.*
 import io.micronaut.openapi.annotation.OpenAPIInclude
+import io.swagger.v3.oas.annotations.security.OAuthFlow
+import io.swagger.v3.oas.annotations.security.OAuthFlows
+import io.swagger.v3.oas.annotations.security.OAuthScope
 import io.swagger.v3.oas.annotations.tags.Tag
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType
@@ -25,11 +28,17 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme
         tags = @Tag(name = "Management"),
         security = @SecurityRequirement(name = "BEARER", scopes = ["ADMIN"])
 )
-@SecurityScheme(
-    name = "openid",
-    type = SecuritySchemeType.OAUTH2,
-    scheme = "bearer",
-    bearerFormat = "jwt"
+
+@SecurityScheme(name = "roles",
+        type = SecuritySchemeType.OAUTH2,
+        scheme = "bearer",
+        bearerFormat = "jwt",
+        flows = @OAuthFlows(
+                authorizationCode = @OAuthFlow(
+                        authorizationUrl = "http://localhost:8888/auth/realms/master/protocol/openid-connect/auth",
+                        tokenUrl = "http://localhost:8888/auth/realms/master/protocol/openid-connect/token"
+                )
+        )
 )
 @CompileStatic
 class Application {

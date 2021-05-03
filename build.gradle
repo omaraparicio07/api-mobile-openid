@@ -46,6 +46,7 @@ dependencies {
     implementation("org.springframework:spring-orm:5.2.0.RELEASE")
     runtimeOnly("ch.qos.logback:logback-classic")
     compile ("org.springframework.ldap:spring-ldap-core:2.3.3.RELEASE")
+    implementation ('io.micronaut.configuration:micronaut-security-oauth2:1.4.0')
 }
 
 
