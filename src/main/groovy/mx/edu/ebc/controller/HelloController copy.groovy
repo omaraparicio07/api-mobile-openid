@@ -3,7 +3,10 @@ package mx.edu.ebc.controller
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.Header
+import io.micronaut.http.annotation.Produces
 import io.micronaut.security.annotation.Secured
+import io.micronaut.security.oauth2.endpoint.token.response.OauthUserDetailsMapper
 import io.micronaut.security.rules.SecurityRule
 import io.reactivex.Single
 import io.micronaut.http.MediaType
@@ -17,7 +20,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 
 @Controller("/")
-@Secured(SecurityRule.IS_AUTHENTICATED)
+@Secured(SecurityRule.IS_ANONYMOUS)
 class HelloController {
 
     @Get(uri="/")
@@ -25,7 +28,7 @@ class HelloController {
     URI location = new URI("/swagger-ui")
     return HttpResponse.redirect(location)
   }
-
+    @Secured(SecurityRule.IS_AUTHENTICATED)
     @Get(uri="/greetings/{name}", produces= MediaType.TEXT_PLAIN)
     @Operation(summary = "Greets a person",
             description = "A friendly greeting is returned"
@@ -37,14 +40,23 @@ class HelloController {
     @ApiResponse(responseCode = "400", description = "Invalid Name Supplied")
     @ApiResponse(responseCode = "404", description = "Person not found")
     @Tag(name = "greeting")
-    @SecurityRequirement(name = "roles", scopes = "roles")
+    @SecurityRequirement(name = "roles")
     Single<String> greetings(@Parameter(description="The name of the person") @NotBlank String name) {
         return Single.just("Hello $name, How are you doing?")
     }
 
     @Get("/view")
     @Secured(["viewer"])
-    public String view() {
+    String view(@Header("Authorization") String authorization) {
+      println(authorization.dump())
+        
         return "You are viewer!";
+    }
+
+    @Get("/admin")
+    @Secured("admin")
+    @Produces
+    String admin() {
+        return "{admin:true}";
     }
 }

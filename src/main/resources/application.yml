@@ -3,19 +3,29 @@ micronaut:
     name: apiMobileOpenid
   server:
     port: 8150
+    cors:
+      enabled: true
+      single-header: true
   security:
     enabled: true
+    authentication: bearer
     endpoints:
       login:
+        enabled: true
+      oauth:
         enabled: true
     redirect:
       login-success: /swagger-ui/oauth2-redirect.html
     token:
       jwt:
         enabled: true
+        bearer:
+          enabled: false
+        cookie:
+          enabled: true
         signatures:
           jwks:
-            cas:
+            keycloak:
               url: http://localhost:8888/auth/realms/master/protocol/openid-connect/certs
     oauth2.clients.keycloak:
       grant-type: password
@@ -41,26 +51,3 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
-  # security:
-  #   authentication: idtoken
-  #   endpoints:
-  #     login:
-  #       enabled: true
-  #   redirect:
-  #     login-success: /secure/anonymous
-  #   token:
-  #     jwt:
-  #       enabled: true
-  #       signatures:
-  #         jwks:
-  #           keycloak:
-  #             url: http://localhost:8888/auth/realms/master/protocol/openid-connect/certs
-  #   oauth2.clients.keycloak:
-  #     grant-type: password
-  #     client-id: api-mobile
-  #     client-secret: 504809c5-881f-4f8a-9925-9ec0f925a35c
-  #     authorization:
-  #       url: http://localhost:8888/auth/realms/master/protocol/openid-connect/auth
-  #     token:
-  #       url: http://localhost:8888/auth/realms/master/protocol/openid-connect/token
-  #       auth-method: client-secret-post

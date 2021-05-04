@@ -34,9 +34,9 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme
         scheme = "bearer",
         bearerFormat = "jwt",
         flows = @OAuthFlows(
-                authorizationCode = @OAuthFlow(
-                        authorizationUrl = "http://localhost:8888/auth/realms/master/protocol/openid-connect/auth",
-                        tokenUrl = "http://localhost:8888/auth/realms/master/protocol/openid-connect/token"
+            password = @OAuthFlow(
+                        tokenUrl = "http://localhost:8888/auth/realms/master/protocol/openid-connect/token",
+                        refreshUrl = ""
                 )
         )
 )
