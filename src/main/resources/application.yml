@@ -10,17 +10,11 @@ micronaut:
     enabled: true
     authentication: bearer
     endpoints:
-      login:
-        enabled: true
-      oauth:
-        enabled: true
-    redirect:
-      login-success: /swagger-ui/oauth2-redirect.html
+      logout:
+        get-allowed: true
     token:
       jwt:
         enabled: true
-        bearer:
-          enabled: false
         cookie:
           enabled: true
         signatures:
@@ -31,6 +25,8 @@ micronaut:
       grant-type: password
       client-id: apimobile
       client-secret: 504809c5-881f-4f8a-9925-9ec0f925a35c
+      session:
+        enabled: true
       authorization:
         url: http://localhost:8888/auth/realms/master/protocol/openid-connect/auth
       token:
