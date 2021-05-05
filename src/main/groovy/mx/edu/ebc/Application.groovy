@@ -19,15 +19,15 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme
             version = "0.0"
     )
 )
-@OpenAPIInclude(
-        classes = [io.micronaut.security.endpoints.LoginController.class, io.micronaut.security.endpoints.LogoutController.class] ,
-        tags = @Tag(name = "Security")
-)
-@OpenAPIInclude(
-        classes = io.micronaut.management.endpoint.env.EnvironmentEndpoint.class,
-        tags = @Tag(name = "Management"),
-        security = @SecurityRequirement(name = "BEARER", scopes = ["ADMIN"])
-)
+// @OpenAPIInclude(
+//         classes = [io.micronaut.security.endpoints.LoginController.class, io.micronaut.security.endpoints.LogoutController.class] ,
+//         tags = @Tag(name = "Security")
+// )
+// @OpenAPIInclude(
+//         classes = io.micronaut.management.endpoint.env.EnvironmentEndpoint.class,
+//         tags = @Tag(name = "Management"),
+//         security = @SecurityRequirement(name = "BEARER", scopes = ["ADMIN"])
+// )
 
 @SecurityScheme(name = "roles",
         type = SecuritySchemeType.OAUTH2,
