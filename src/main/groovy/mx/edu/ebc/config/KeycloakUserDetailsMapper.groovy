@@ -31,10 +31,12 @@ class KeycloakUserDetailsMapper implements OauthUserDetailsMapper {
   @Client("http://localhost:8888")
   @Inject
   private RxHttpClient client
+
   @Override
   Publisher createUserDetails(TokenResponse tokenResponse) {
     return Publishers.just(new UnsupportedOperationException());
   }
+
   @Override
   Publisher<AuthenticationResponse> createAuthenticationResponse(TokenResponse tokenResponse, @Nullable State state) {
     Flowable<HttpResponse<KeycloakUser>> res = client
